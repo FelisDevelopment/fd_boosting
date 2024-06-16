@@ -7,7 +7,8 @@ import HomePage from './pages/HomePage.vue'
 <template>
   <n-config-provider :theme="darkTheme">
     <!-- w-[1350px] h-[970px] -->
-    <main id="parent" class="relative w-[1350px] h-[970px] p-[2.25rem] flex flex-1">
+    <!-- <main id="parent" class="relative w-[1200px] p-[2.25rem] flex flex-1"> -->
+    <main id="parent" class="relative w-[1215px] h-[873px] p-[2.30rem] flex flex-1">
       <div id="inner" class="z-10 bg-blue-500 flex flex-1 rounded-[1.275rem] overflow-hidden p-1">
         aaaa
         <!-- <HomePage /> -->
