@@ -1,7 +1,7 @@
 import HomePage from '@/pages/HomePage.vue'
-import { darkTheme, lightTheme, type GlobalTheme } from 'naive-ui'
+import { type GlobalTheme, darkTheme, lightTheme } from 'naive-ui'
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export enum AvailableTabs {
   HOME = 'HOME',
@@ -19,6 +19,7 @@ export const useUi = defineStore('ui', () => {
   })
 
   const theme = ref<GlobalTheme>(darkTheme)
+  const isDarkMode = computed(() => theme.value.name === 'dark')
   const switchTheme = (): void => {
     if (theme.value.name !== 'dark') {
       theme.value = darkTheme
@@ -28,7 +29,8 @@ export const useUi = defineStore('ui', () => {
     theme.value = lightTheme
   }
 
-  const isDarkMode = computed(() => theme.value.name === 'dark')
+  const isUserDrawerOpen = ref<boolean>(false)
+  const isNavigationOpen = ref<boolean>(true)
 
   return {
     currentTab,
@@ -36,6 +38,8 @@ export const useUi = defineStore('ui', () => {
     currentTabComponent,
     theme,
     switchTheme,
-    isDarkMode
+    isDarkMode,
+    isUserDrawerOpen,
+    isNavigationOpen
   }
 })

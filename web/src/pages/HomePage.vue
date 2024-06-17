@@ -16,8 +16,8 @@ const testing = () => {
 
 <template>
   <n-scrollbar>
-    <div class="flex-1 overflow-auto">
+    <!-- <div class="flex-1 overflow-auto">
       <n-button @click.prevent="ui.switchTheme()"> Bandom </n-button>
-    </div>
+    </div> -->
   </n-scrollbar>
 </template>

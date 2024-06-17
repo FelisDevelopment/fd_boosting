@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { NConfigProvider, NNotificationProvider, useThemeVars } from 'naive-ui'
-import { darkTheme } from 'naive-ui'
 import { useUi } from './stores/ui.store'
 import { computed, ref } from 'vue'
+import TopNavigation from './components/TopNavigation.vue'
+import UserProfileDrawer from './components/UserProfileDrawer.vue'
+import NavigationComponent from './components/NavigationComponent.vue'
 
 const ui = useUi()
 const innerElement = ref<HTMLElement>()
 
 const bodyStyles = computed(() => ({
-  'background-color': ui.theme.common.bodyColor
+  'background-color': ui.theme.common!.bodyColor
 }))
 </script>
 
@@ -18,12 +20,15 @@ const bodyStyles = computed(() => ({
       <div
         ref="innerElement"
         id="inner"
-        class="relative z-10 flex flex-1 rounded-[1.275rem] overflow-hidden p-1"
+        class="relative z-10 flex flex-1 flex-col rounded-[1.275rem] overflow-hidden p-1"
         :style="bodyStyles"
       >
+        <TopNavigation />
         <n-notification-provider :to="innerElement" container-class="absolute" :max="10">
           <component :is="ui.currentTabComponent"></component>
         </n-notification-provider>
+        <UserProfileDrawer :to="innerElement" />
+        <NavigationComponent :to="innerElement" />
       </div>
       <img src="/images/frame.svg" class="absolute w-full top-0 left-0 -z-10" alt="Frame" />
     </main>
