@@ -1,20 +1,27 @@
-import HomePage from '@/pages/HomePage.vue'
+import ContractsPage from '@/pages/ContractsPage.vue'
+import HistoryPage from '@/pages/HistoryPage.vue'
 import { type GlobalTheme, darkTheme, lightTheme } from 'naive-ui'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 export enum AvailableTabs {
-  HOME = 'HOME',
+  CONTRACTS = 'CONTRACTS',
+  HISTORY = 'HISTORY',
   STORE = 'STORE'
 }
 
 export const useUi = defineStore('ui', () => {
-  const currentTab = ref<AvailableTabs>(AvailableTabs.HOME)
+  const currentTab = ref<AvailableTabs>(AvailableTabs.CONTRACTS)
   const currentTabData = ref<Record<string, any>>({})
   const currentTabComponent = computed(() => {
+    console.log('dafuq', currentTab.value)
     switch (currentTab.value) {
+      case AvailableTabs.HISTORY:
+        console.log('yes')
+        return HistoryPage
       default:
-        return HomePage
+        console.log('yes2')
+        return ContractsPage
     }
   })
 
@@ -30,7 +37,7 @@ export const useUi = defineStore('ui', () => {
   }
 
   const isUserDrawerOpen = ref<boolean>(false)
-  const isNavigationOpen = ref<boolean>(true)
+  const isNavigationOpen = ref<boolean>(false)
 
   return {
     currentTab,

@@ -8,7 +8,6 @@ import {
   NPopover,
   NList,
   NListItem,
-  NThing,
   NButton
 } from 'naive-ui'
 import { Menu as MenuIcon } from '@vicons/ionicons5'
@@ -24,7 +23,7 @@ const logoStyles = computed(() => ({
 }))
 </script>
 <template>
-  <div class="px-5">
+  <div class="px-3 mt-2">
     <n-card size="small" content-class="!py-0 !px-2">
       <n-flex justify="space-between" align="center">
         <n-flex inline align="center" :size="[2, 2]">

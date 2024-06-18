@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { NConfigProvider, NNotificationProvider, useThemeVars } from 'naive-ui'
-import { useUi } from './stores/ui.store'
+import { AvailableTabs, useUi } from './stores/ui.store'
 import { computed, ref } from 'vue'
+import { TransitionFade, TransitionSlide } from '@morev/vue-transitions'
 import TopNavigation from './components/TopNavigation.vue'
 import UserProfileDrawer from './components/UserProfileDrawer.vue'
 import NavigationComponent from './components/NavigationComponent.vue'
+import ContractsPage from './pages/ContractsPage.vue'
+import HistoryPage from './pages/HistoryPage.vue'
 
 const ui = useUi()
 const innerElement = ref<HTMLElement>()
+
+const tabs: Record<string, any> = {
+  CONTRACTS: ContractsPage,
+  HISTORY: HistoryPage
+}
 
 const bodyStyles = computed(() => ({
   'background-color': ui.theme.common!.bodyColor
@@ -25,7 +33,9 @@ const bodyStyles = computed(() => ({
       >
         <TopNavigation />
         <n-notification-provider :to="innerElement" container-class="absolute" :max="10">
-          <component :is="ui.currentTabComponent"></component>
+          <!-- <transition-slide mode="out-in"> -->
+          <component :is="tabs[ui.currentTab]" :key="ui.currentTab" />
+          <!-- </transition-slide> -->
         </n-notification-provider>
         <UserProfileDrawer :to="innerElement" />
         <NavigationComponent :to="innerElement" />
