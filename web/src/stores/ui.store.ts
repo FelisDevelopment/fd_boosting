@@ -11,19 +11,27 @@ export enum AvailableTabs {
 }
 
 export const useUi = defineStore('ui', () => {
-  const currentTab = ref<AvailableTabs>(AvailableTabs.CONTRACTS)
-  const currentTabData = ref<Record<string, any>>({})
+  const isLoading = ref<boolean>(false)
+  const currentTab = ref<AvailableTabs | null>(AvailableTabs.CONTRACTS)
   const currentTabComponent = computed(() => {
-    console.log('dafuq', currentTab.value)
     switch (currentTab.value) {
       case AvailableTabs.HISTORY:
-        console.log('yes')
         return HistoryPage
       default:
-        console.log('yes2')
         return ContractsPage
     }
   })
+  const switchTab = (tab: AvailableTabs) => {
+    if (isLoading.value) return
+    if (currentTab.value === tab) return
+
+    isLoading.value = true
+
+    currentTab.value = tab
+    setTimeout(() => {
+      isLoading.value = false
+    }, 1000)
+  }
 
   const theme = ref<GlobalTheme>(darkTheme)
   const isDarkMode = computed(() => theme.value.name === 'dark')
@@ -40,8 +48,9 @@ export const useUi = defineStore('ui', () => {
   const isNavigationOpen = ref<boolean>(false)
 
   return {
+    isLoading,
+    switchTab,
     currentTab,
-    currentTabData,
     currentTabComponent,
     theme,
     switchTheme,

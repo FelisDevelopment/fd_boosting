@@ -2,12 +2,12 @@
 import { NConfigProvider, NNotificationProvider, useThemeVars } from 'naive-ui'
 import { AvailableTabs, useUi } from './stores/ui.store'
 import { computed, ref } from 'vue'
-import { TransitionFade, TransitionSlide } from '@morev/vue-transitions'
 import TopNavigation from './components/TopNavigation.vue'
 import UserProfileDrawer from './components/UserProfileDrawer.vue'
 import NavigationComponent from './components/NavigationComponent.vue'
 import ContractsPage from './pages/ContractsPage.vue'
 import HistoryPage from './pages/HistoryPage.vue'
+import { NSpin } from 'naive-ui'
 
 const ui = useUi()
 const innerElement = ref<HTMLElement>()
@@ -16,6 +16,10 @@ const tabs: Record<string, any> = {
   CONTRACTS: ContractsPage,
   HISTORY: HistoryPage
 }
+
+const tabComponent = computed(() => {
+  return tabs[ui.currentTab]
+})
 
 const bodyStyles = computed(() => ({
   'background-color': ui.theme.common!.bodyColor
@@ -33,9 +37,10 @@ const bodyStyles = computed(() => ({
       >
         <TopNavigation />
         <n-notification-provider :to="innerElement" container-class="absolute" :max="10">
-          <!-- <transition-slide mode="out-in"> -->
-          <component :is="tabs[ui.currentTab]" :key="ui.currentTab" />
-          <!-- </transition-slide> -->
+          <div v-if="ui.isLoading" class="flex flex-1 justify-center items-center">
+            <n-spin size="large" />
+          </div>
+          <component v-else :is="tabComponent" />
         </n-notification-provider>
         <UserProfileDrawer :to="innerElement" />
         <NavigationComponent :to="innerElement" />

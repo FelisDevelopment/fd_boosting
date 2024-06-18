@@ -79,12 +79,9 @@ const options: MenuOption[] = [
 
 const changeTab = (event: MouseEvent, id: AvailableTabs) => {
   event.preventDefault()
-  console.log(id)
+  ui.switchTab(id)
+
   ui.isNavigationOpen = false
-  setTimeout(() => {
-    console.log('changing tab')
-    ui.currentTab = id
-  }, 2000)
 }
 </script>
 <template>

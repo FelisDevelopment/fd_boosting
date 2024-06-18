@@ -2,6 +2,7 @@
 import { useMessage } from '@/stores/message.store'
 import { useUi } from '@/stores/ui.store'
 import { NScrollbar, NButton, useThemeVars } from 'naive-ui'
+import { onMounted } from 'vue'
 
 const ui = useUi()
 // const message = useMessage()
@@ -12,6 +13,11 @@ const ui = useUi()
 // duration: 1000
 //   })
 // }
+
+onMounted(() => {
+  console.log('hits')
+  ui.isLoading = false
+})
 </script>
 
 <template>
