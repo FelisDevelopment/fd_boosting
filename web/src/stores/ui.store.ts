@@ -11,8 +11,9 @@ export enum AvailableTabs {
 }
 
 export const useUi = defineStore('ui', () => {
+  const isTabInTransition = ref<boolean>(false)
   const isLoading = ref<boolean>(false)
-  const currentTab = ref<AvailableTabs | null>(AvailableTabs.CONTRACTS)
+  const currentTab = ref<AvailableTabs>(AvailableTabs.CONTRACTS)
   const currentTabComponent = computed(() => {
     switch (currentTab.value) {
       case AvailableTabs.HISTORY:

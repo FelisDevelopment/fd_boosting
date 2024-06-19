@@ -18,7 +18,7 @@ const tabs: Record<string, any> = {
 }
 
 const tabComponent = computed(() => {
-  return tabs[ui.currentTab]
+  return tabs[ui.currentTab!]
 })
 
 const bodyStyles = computed(() => ({
@@ -38,9 +38,11 @@ const bodyStyles = computed(() => ({
         <TopNavigation />
         <n-notification-provider :to="innerElement" container-class="absolute" :max="10">
           <div v-if="ui.isLoading" class="flex flex-1 justify-center items-center">
-            <n-spin size="large" />
+            <n-spin size="large"></n-spin>
           </div>
-          <component v-else :is="tabComponent" />
+          <div v-else class="flex flex-1">
+            <component :is="tabComponent" />
+          </div>
         </n-notification-provider>
         <UserProfileDrawer :to="innerElement" />
         <NavigationComponent :to="innerElement" />

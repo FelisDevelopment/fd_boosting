@@ -16,10 +16,24 @@ export interface UserData {
   }
 }
 
+export interface GroupMember {
+  identifier: string
+  name: string
+  isLeader: string
+}
+export interface Group {
+  isPublic: boolean
+  name: string
+  inviteCode: string
+  members: GroupMember[]
+}
+
 export const useData = defineStore('data', () => {
   const user = ref<Partial<UserData>>(isDevMode ? userData : {})
+  const group = ref<Group | null>(null)
 
   return {
-    user
+    user,
+    group
   }
 })
